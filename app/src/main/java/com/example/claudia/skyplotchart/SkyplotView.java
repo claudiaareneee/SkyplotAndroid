@@ -90,7 +90,10 @@ public class SkyplotView extends View {
             stopY = centerY + radius*Math.sin(currentAngle);
 
             canvas.drawLine(centerX,centerY,(float)stopX,(float)stopY,paint);
-            drawLabel(canvas,(float)currentAngle,(float)stopX,(float)stopY);
+
+            if (i % 3 == 0) {
+                drawLabel(canvas,(float)currentAngle,(float)stopX,(float)stopY);
+            }
 
             Log.d(TAG, "drawLines: stopX: " + stopX + ", stopY: " + stopY );
 
@@ -101,14 +104,21 @@ public class SkyplotView extends View {
     }
 
     private void drawLabel(Canvas canvas, float radians, float startX, float startY){
-        String text = String.format("%.2f", Math.toDegrees(radians));
+        Double currentAngle = Math.toDegrees(radians);
+        currentAngle +=90;
+        if(currentAngle > 360) currentAngle-=360;
 
-        canvas.save();
+
+        String text = String.format("%.2f", currentAngle);
+
+
+
+//        canvas.save();
 //        canvas.rotate(radians);
 
         textPaint.getTextBounds(text,0,text.length(),rect);
         canvas.drawText(text,startX,startY, textPaint);
 
-        canvas.restore();
+//        canvas.restore();
     }
 }
