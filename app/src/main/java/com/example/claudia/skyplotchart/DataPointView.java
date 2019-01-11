@@ -16,8 +16,8 @@ public class DataPointView extends View {
 
     private final int defaultBorderWidth = 10;
     private final int defaultBackgroundColor = 0xff00ffff;
-    private final int defaultBorderColor = 0xffffffff;
-    private final int defaultTextColor = 0xffffffff;
+    private final int defaultBorderColor = 0xff000000;
+    private final int defaultTextColor = 0xff000000;
     private final int defaultTextPercentage = 50;
 
     private Paint backgroundPaint, borderPaint, textPaint;

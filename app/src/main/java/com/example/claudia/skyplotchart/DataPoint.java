@@ -1,7 +1,10 @@
 package com.example.claudia.skyplotchart;
 
+import android.content.Context;
+
 public class DataPoint {
     private float azimuth, elevation;
+    private DataPointView dataPointView;
     String id;
 
     public DataPoint(String id, float azimuth, float elevation){

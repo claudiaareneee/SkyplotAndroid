@@ -11,7 +11,6 @@ public class SkyplotGrid {
     private int numberOfLines = 12;
 
     private Paint paint, textPaint;
-    private Rect rect = new Rect();
     private Rect bounds = new Rect();
     private int margin = 0;
     private float radius, centerX, centerY;
