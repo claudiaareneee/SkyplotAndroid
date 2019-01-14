@@ -7,9 +7,15 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SkyplotView extends View {
 
-    SkyplotGrid skyplotGrid = new SkyplotGrid();
+    private SkyplotGrid skyplotGrid = new SkyplotGrid();
+    private List<DataPoint> dataPoints = new ArrayList<>();
+
+    private final int MARGIN = 80;
 
     public SkyplotView(Context context) {
         super(context);
@@ -32,7 +38,34 @@ public class SkyplotView extends View {
     }
 
     private void init(){
-        skyplotGrid.setMargin(80);
+        skyplotGrid.setMargin(MARGIN);
+
+        DataPoint dataPoint;
+//        dataPoint = new DataPoint("90", 90,0);
+//        dataPoints.add(dataPoint);
+//        dataPoint = new DataPoint("60", 60,0);
+//        dataPoints.add(dataPoint);
+//        dataPoint = new DataPoint("30", 30,0);
+//        dataPoints.add(dataPoint);
+//        dataPoint = new DataPoint("00", 0,0);
+//        dataPoints.add(dataPoint);
+//        dataPoint = new DataPoint("180", 180,0);
+//        dataPoints.add(dataPoint);
+//        dataPoint = new DataPoint("270", 270,0);
+//        dataPoints.add(dataPoint);
+
+        dataPoint = new DataPoint("90", 0,90);
+        dataPoints.add(dataPoint);
+        dataPoint = new DataPoint("60", 0,60);
+        dataPoints.add(dataPoint);
+        dataPoint = new DataPoint("30", 0,30);
+        dataPoints.add(dataPoint);
+        dataPoint = new DataPoint("00", 0,0);
+        dataPoints.add(dataPoint);
+    }
+
+    public void addDataPoint(DataPoint dataPoint){
+        dataPoints.add(dataPoint);
     }
 
     @Override
@@ -57,5 +90,11 @@ public class SkyplotView extends View {
 //        canvas.drawRect(margins,margins,getWidth()-margins,getHeight()-margins, paint);
 
         skyplotGrid.drawGraph(canvas);
+//        dataPoint.drawDataPoint(canvas);
+
+        for (DataPoint data:dataPoints) {
+            data.drawDataPoint(canvas, MARGIN);
+        }
+
     }
 }
