@@ -41,18 +41,15 @@ public class SkyplotView extends View {
     public void addDataPoint(int constellation, DataPoint dataPoint){
         String uniqueId = dataPoint.getId();
 
-        if(uniqueId.length()<2){
-            uniqueId = "0" + uniqueId;
-        }
-
         uniqueId = constellation + uniqueId;
 
         dataPoints.put(uniqueId, dataPoint);
         invalidate();
     }
-    
-    public DataPoint removeDataPoint(String id){
-        DataPoint dataPoint = dataPoints.remove(id);
+
+    public DataPoint removeDataPoint(int constellation, String id){
+        String uniqueId = constellation + id;
+        DataPoint dataPoint = dataPoints.remove(uniqueId);
         invalidate();
         return dataPoint;
     }
