@@ -7,8 +7,8 @@ import android.graphics.Typeface;
 
 public class DataPoint {
     private float azimuth, elevation;
-    String id;
-    String shortendId;
+    private String id;
+    private String shortenedId;
 
     private int textSizePercentage = 50;
     private final float radius = 30;
@@ -36,8 +36,8 @@ public class DataPoint {
         this.azimuth = 180 - azimuth;
         this.elevation = elevation;
 
-        if(id.length()>3) shortendId = id.substring(0,2) + "..";
-        else shortendId = id;
+        if(id.length()>3) shortenedId = id.substring(0,2) + "..";
+        else shortenedId = id;
 
         initializePaints();
     }
@@ -120,9 +120,9 @@ public class DataPoint {
         canvas.drawCircle(centerX,centerY, radius, borderPaint);
 
         textPaint.setTextSize(calculateTextSize(canvas, textSizePercentage));
-        textPaint.getTextBounds(shortendId,0,shortendId.length(),rect);
+        textPaint.getTextBounds(shortenedId,0, shortenedId.length(),rect);
 
-        canvas.drawText(shortendId,centerX,centerY + Math.abs(rect.height())/2, textPaint);
+        canvas.drawText(shortenedId,centerX,centerY + Math.abs(rect.height())/2, textPaint);
 
     }
 }
