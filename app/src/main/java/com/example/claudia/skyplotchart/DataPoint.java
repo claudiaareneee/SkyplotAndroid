@@ -36,7 +36,7 @@ public class DataPoint {
         this.azimuth = 180 - azimuth;
         this.elevation = elevation;
 
-        if(id.length()>2) shortendId = id.substring(0,2) + "..";
+        if(id.length()>3) shortendId = id.substring(0,2) + "..";
         else shortendId = id;
 
         initializePaints();
