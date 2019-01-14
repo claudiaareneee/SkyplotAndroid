@@ -15,8 +15,6 @@ public class DataPoint {
     private Paint backgroundPaint, borderPaint, textPaint;
     private int borderWidth;
 
-    private final int MARGIN = 3;
-
     private Rect rect;
 
     public float getAzimuth(){
