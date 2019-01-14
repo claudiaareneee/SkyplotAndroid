@@ -66,7 +66,7 @@ public class SkyplotView extends View {
         dataPoint = new DataPoint("00", 0,0);
         dataPoint.setBackgroundColor(Color.GREEN);
         dataPoints.add(dataPoint);
-        dataPoint = new DataPoint("", 30,30);
+        dataPoint = new DataPoint("7001", 30,30);
         dataPoint.setBackgroundColor(Color.RED);
         dataPoints.add(dataPoint);
     }
