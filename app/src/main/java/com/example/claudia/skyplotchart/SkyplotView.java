@@ -36,47 +36,22 @@ public class SkyplotView extends View {
 
     private void init(){
         skyplotGrid.setMargin(MARGIN);
-//        DataPoint dataPoint;
-//        dataPoint = new DataPoint("90", 90,0);
-//        dataPoints.put("90",dataPoint);
-//        dataPoint = new DataPoint("60", 60,0);
-//        dataPoints.put("60",dataPoint);
-//        dataPoint = new DataPoint("30", 30,0);
-//        dataPoints.put("30",dataPoint);
-//        dataPoint = new DataPoint("00", 0,0);
-//        dataPoints.put("00",dataPoint);
-//        dataPoint = new DataPoint("180", 180,0);
-//        dataPoints.put("180",dataPoint);
-//        dataPoint = new DataPoint("270", 270,0);
-//        dataPoints.put("270",dataPoint);
-//
-//        dataPoint = new DataPoint("90", 0,90);
-//        dataPoint.setBackgroundColor(Color.GREEN);
-//        dataPoints.put("090",dataPoint);
-//        dataPoint = new DataPoint("60", 0,60);
-//        dataPoint.setBackgroundColor(Color.GREEN);
-//        dataPoints.put("060",dataPoint);
-//        dataPoint = new DataPoint("30", 0,30);
-//        dataPoint.setBackgroundColor(Color.GREEN);
-//        dataPoints.put("030",dataPoint);
-//        dataPoint = new DataPoint("00", 0,0);
-//        dataPoint.setBackgroundColor(Color.GREEN);
-//        dataPoints.put("000",dataPoint);
-//        dataPoint = new DataPoint("7001", 30,30);
-//        dataPoint.setBackgroundColor(Color.RED);
-//        dataPoints.put("7001",dataPoint);
     }
 
     public void addDataPoint(DataPoint dataPoint){
         dataPoints.put(dataPoint.getId(), dataPoint);
+        invalidate();
     }
 
     public DataPoint removeDataPoint(String id){
-        return dataPoints.remove(id);
+        DataPoint dataPoint = dataPoints.remove(id);
+        invalidate();
+        return dataPoint;
     }
 
-    public void removeAll(String id){
+    public void removeAll(){
         dataPoints.clear();
+        invalidate();
     }
 
     @Override
@@ -87,6 +62,7 @@ public class SkyplotView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
         skyplotGrid.drawGraph(canvas);
 
         for(Map.Entry<String, DataPoint> entry : dataPoints.entrySet()) {
