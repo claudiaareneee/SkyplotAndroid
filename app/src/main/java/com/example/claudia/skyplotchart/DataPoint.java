@@ -1,48 +1,14 @@
 package com.example.claudia.skyplotchart;
 
-import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
-import android.util.AttributeSet;
 
 public class DataPoint {
     private float azimuth, elevation;
     String id;
-
-    public float getAzimuth(){
-        return azimuth;
-    }
-    public float getElevation(){
-        return elevation;
-    }
-
-    public float elevationToPolar(){
-        return (90f - elevation);
-    }
-
-    public float getX(){
-        return elevationToPolar() * (float)Math.sin(Math.toRadians(azimuth));
-    }
-
-    public float getY(){
-        return elevationToPolar() * (float)Math.cos(Math.toRadians(azimuth));
-    }
-
-    public float scaleAndCenter(float value, float originValue, float scaleConstraint, float margin){
-//        if(value > 360){
-//            value -= 360;
-//        }
-
-        float scaleFactor = (scaleConstraint/2f - margin)/90;
-        return originValue + scaleFactor*value;
-    }
-
-    public String getId(){
-        return id;
-    }
+    String shortendId;
 
     private int textSizePercentage = 50;
     private final float radius = 30;
@@ -53,11 +19,48 @@ public class DataPoint {
 
     private Rect rect;
 
-    public DataPoint(String id, float azimuth, float elevation){
+    public float getAzimuth(){
+        return azimuth;
+    }
+
+    public float getElevation(){
+        return elevation;
+    }
+
+    public String getId(){
+        return id;
+    }
+
+    public void setValues(String id, float azimuth, float elevation){
         this.id = id;
         this.azimuth = 180 - azimuth;
         this.elevation = elevation;
 
+        if(id.length()>2) shortendId = id.substring(0,1);
+        else shortendId = id;
+
+        initializePaints();
+    }
+
+    public float getX(){
+        return elevationToPolar() * (float)Math.sin(Math.toRadians(azimuth));
+    }
+
+    public float getY(){
+        return elevationToPolar() * (float)Math.cos(Math.toRadians(azimuth));
+    }
+
+    public float elevationToPolar(){
+        return (90f - elevation);
+    }
+
+    public float scaleAndCenter(float value, float originValue, float scaleConstraint, float margin){
+        float scaleFactor = (scaleConstraint/2f - margin)/90;
+        return originValue + scaleFactor*value;
+    }
+
+    public DataPoint(String id, float azimuth, float elevation){
+        setValues(id, azimuth, elevation);
         initializePaints();
     }
 
@@ -100,15 +103,6 @@ public class DataPoint {
     }
 
     public void drawDataPoint(Canvas canvas, int margin) {
-
-//        float centerX = canvas.getWidth()/2;
-//        float centerY = canvas.getHeight()/2;
-//        float radius;
-//
-//        if (centerX>centerY) radius = centerY - MARGIN;
-//        else radius = centerX - MARGIN;
-
-//        float scale = (canvas.getWidth()/2 - margin)/90f;
         float width = canvas.getWidth();
         float height = canvas.getHeight();
 
@@ -123,13 +117,12 @@ public class DataPoint {
         borderWidth = Math.round(radius)/4;
         borderPaint.setStrokeWidth(borderWidth);
 
-//        canvas.drawCircle(centerX,centerY, radius - (borderWidth/2), borderPaint);
         canvas.drawCircle(centerX,centerY, radius, borderPaint);
 
         textPaint.setTextSize(calculateTextSize(canvas, textSizePercentage));
-        textPaint.getTextBounds(id,0,id.length(),rect);
+        textPaint.getTextBounds(shortendId,0,shortendId.length(),rect);
 
-        canvas.drawText(id,centerX,centerY + Math.abs(rect.height())/2, textPaint);
+        canvas.drawText(shortendId,centerX,centerY + Math.abs(rect.height())/2, textPaint);
 
     }
 }
