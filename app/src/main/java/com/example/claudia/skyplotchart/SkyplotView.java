@@ -38,11 +38,19 @@ public class SkyplotView extends View {
         skyplotGrid.setMargin(MARGIN);
     }
 
-    public void addDataPoint(DataPoint dataPoint){
-        dataPoints.put(dataPoint.getId(), dataPoint);
+    public void addDataPoint(int constellation, DataPoint dataPoint){
+        String uniqueId = dataPoint.getId();
+
+        if(uniqueId.length()<2){
+            uniqueId = "0" + uniqueId;
+        }
+
+        uniqueId = constellation + uniqueId;
+
+        dataPoints.put(uniqueId, dataPoint);
         invalidate();
     }
-
+    
     public DataPoint removeDataPoint(String id){
         DataPoint dataPoint = dataPoints.remove(id);
         invalidate();
